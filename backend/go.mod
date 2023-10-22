@@ -1,4 +1,4 @@
-module github.com/Podcherry/podcherry_webapp
+module github.com/Podcherry/podcherry_webapp/backend
 
 go 1.21.3
 

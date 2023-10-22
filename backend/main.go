@@ -1,12 +1,11 @@
 package main
 
 import (
-	"encoding/json"
-	"io"
-	"net/http"
-	"net/url"
+	"net/http" // From Go
 
-	"github.com/gin-gonic/gin"
+	"github.com/Podcherry/podcherry_webapp/backend/api" // Local
+
+	"github.com/gin-gonic/gin" // This makes life so much easier
 )
 
 func main() {
@@ -18,7 +17,7 @@ func main() {
 		errCh := make(chan error)
 
 		go func() {
-			data, err := searchPodcastShow(term)
+			data, err := api.SearchPodcastShow(term)
 			if err != nil {
 				errCh <- err
 				return
@@ -40,7 +39,7 @@ func main() {
 		errCh := make(chan error)
 
 		go func() {
-			episodes, err := searchPodcastEpisodes(term)
+			episodes, err := api.SearchPodcastEpisodes(term)
 			if err != nil {
 				errCh <- err
 				return
@@ -61,47 +60,4 @@ func main() {
 	})
 
 	r.Run(":8080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-}
-
-func searchPodcastShow(term string) ([]byte, error) {
-	// URL-encode the search term
-	encodedTerm := url.QueryEscape(term)
-
-	// Using the iTunes Search API for podcasts with the encoded term
-	url := "https://itunes.apple.com/search?term=" + encodedTerm + "&entity=podcast"
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return body, nil
-}
-
-func searchPodcastEpisodes(term string) ([]map[string]interface{}, error) {
-	// URL-encode the search term
-	encodedTerm := url.QueryEscape(term)
-
-	// Using the iTunes Search API for podcast episodes with the encoded term
-	url := "https://itunes.apple.com/search?term=" + encodedTerm + "&entity=podcastEpisode"
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	var result struct {
-		Results []map[string]interface{} `json:"results"`
-	}
-
-	err = json.NewDecoder(resp.Body).Decode(&result)
-	if err != nil {
-		return nil, err
-	}
-
-	return result.Results, nil
 }
