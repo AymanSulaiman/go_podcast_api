@@ -8,6 +8,9 @@ import (
 	"github.com/gin-gonic/gin" // This makes life so much easier
 )
 
+//TODO
+// Add in swagger for api documentation
+
 func main() {
 	r := gin.Default()
 
@@ -59,5 +62,5 @@ func main() {
 		c.String(200, "Hello, World!")
 	})
 
-	r.Run(":8080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(":8080") // listen and serve on 0.0.0.0:8080
 }
