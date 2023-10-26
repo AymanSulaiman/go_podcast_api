@@ -5,7 +5,8 @@ import (
 
 	"github.com/Podcherry/podcherry_webapp/backend/api" // Local
 
-	"github.com/gin-gonic/gin" // This makes life so much easier
+	"github.com/gin-contrib/cors" // Import the CORS package
+	"github.com/gin-gonic/gin"    // This makes life so much easier
 )
 
 //TODO
@@ -13,6 +14,9 @@ import (
 
 func main() {
 	r := gin.Default()
+
+	// Use the CORS middleware
+	r.Use(cors.Default()) // This will allow all origins by default
 
 	r.GET("/shows", func(c *gin.Context) {
 		term := c.Query("term") // example: /search?term=tech
