@@ -16,7 +16,15 @@ func main() {
 	r := gin.Default()
 
 	// Use the CORS middleware
-	r.Use(cors.Default()) // This will allow all origins by default
+	// r.Use(cors.Default()) // This will allow all origins by default
+	config := cors.Config{
+		AllowOrigins:     []string{"http://localhost:5000"}, // Or your Svelte app's production URL
+		AllowMethods:     []string{"GET"},
+		AllowHeaders:     []string{"Origin"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}
+	r.Use(cors.New(config))
 
 	r.GET("/shows", func(c *gin.Context) {
 		term := c.Query("term") // example: /search?term=tech
@@ -66,5 +74,5 @@ func main() {
 		c.String(200, "Hello, World!")
 	})
 
-	r.Run(":8080") // listen and serve on 0.0.0.0:8080
+	r.Run(":8000") // listen and serve on 0.0.0.0:8000
 }
