@@ -1,0 +1,81 @@
+/* Overall styling for the #app container */
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;  /* Specifies the font family used */
+  -webkit-font-smoothing: antialiased;  /* Smooths fonts on Webkit browsers for a better look */
+  -moz-osx-font-smoothing: grayscale;   /* Similar font smoothing for Firefox on macOS */
+  text-align: center;  /* Aligns text to the center of the container */
+  color: var(--text);  /* Sets the text color using the --text CSS variable */
+  margin-top: 60px;    /* Adds space at the top */
+}
+
+/* Defines CSS variables using other variables.
+These variables can be used throughout the stylesheet for consistent theming. */
+:root {
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-accent: var(--text);
+    --color-neutral: var(--background);
+}
+
+/* Styling for the body of the page */
+body {
+  background-color: var(--primary-bg-color);  /* Sets background color using the --primary-bg-color CSS variable */
+  color: var(--primary-text-color);           /* Sets text color using the --primary-text-color CSS variable */
+}
+
+/* Styling for theme buttons container. It makes them sticky at the top of the viewport. */
+#theme-buttons {
+  position: sticky;      /* The element is positioned based on the user's scroll position */
+  top: 0;                /* Aligns the top edge of the element with the top of the closest non-static positioned ancestor */
+  z-index: 10;           /* Places it above other elements, ensuring it's on top */
+}
+
+/* Styling for the theme toggle container */
+.theme-toggle {
+  position: relative;  /* Allows absolute positioning of child elements relative to this container */
+  width: 60px;         /* Specifies width */
+  height: 34px;        /* Specifies height */
+}
+
+/* Styling for the input inside the theme toggle. It's hidden but functional. */
+.theme-toggle input {
+  opacity: 0;          /* Makes the input invisible */
+  width: 0;            /* Sets its width to 0 */
+  height: 0;           /* Sets its height to 0 */
+}
+
+/* Styling for the slider label that visually represents the toggle */
+.slider {
+  position: absolute;     /* Positions it relative to the nearest positioned ancestor */
+  cursor: pointer;        /* Shows a hand cursor when hovered */
+  top: 0;                 /* Positions at the top of the parent container */
+  left: 0;                /* Positions at the left of the parent container */
+  right: 0;               /* Positions at the right of the parent container */
+  bottom: 0;              /* Positions at the bottom of the parent container */
+  background-color: #ccc; /* Default background color */
+  transition: 0.4s;       /* Smooth transition for property changes */
+  border-radius: 34px;    /* Rounded corners */
+}
+
+/* Slider circle styling */
+.slider:before {
+  position: absolute;        /* Takes the circle out of the document flow, positioned relative to the nearest positioned ancestor (if any) or initial containing block */
+  content: "";              /* Generates a box in the element, necessary for ::before to work */
+  height: 26px;             /* Sets the height of the circle */
+  width: 26px;              /* Sets the width of the circle */
+  left: 4px;                /* Positions the circle 4 pixels from the left edge of the slider container */
+  bottom: 4px;              /* Positions the circle 4 pixels from the bottom edge of the slider container */
+  background-color: white;  /* Sets the background color of the circle to white */
+  transition: 0.4s;         /* Animation duration of 0.4 seconds for smooth movement when the slider state changes */
+  border-radius: 50%;       /* Makes the circle round by setting the border radius to 50% */
+}
+
+/* Styling for the slider when the associated input is checked */
+input:checked + .slider {
+  background-color: #2196F3; /* Changes the background color of the slider to #2196F3 when the input is checked */
+}
+
+/* Styling for the circle inside the slider when the associated input is checked */
+input:checked + .slider:before {
+  transform: translateX(26px); /* Moves the circle 26 pixels to the right when the input is checked */
+}

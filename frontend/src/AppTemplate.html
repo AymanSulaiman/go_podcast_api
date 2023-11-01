@@ -1,0 +1,13 @@
+
+<!-- Root application container -->
+<div id="app">
+    <!-- Component to search for podcasts -->
+    <search-podcast></search-podcast>
+    <!-- Container for theme toggle button -->
+    <div class="theme-toggle">
+    <!-- Input checkbox to switch between themes -->
+    <input type="checkbox" id="theme-switch" @change="toggleTheme" ref="themeSwitch">
+    <!-- Visual representation of the switch (slider) -->
+    <label for="theme-switch" class="slider"></label>
+    </div>
+</div>
