@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	import EpisodeModal from ".EpisodeModal.svelte";
+	import EpisodeModal from "./EpisodeModal.svelte";
 
 	let searchTerm = "";
 	let shows = [];

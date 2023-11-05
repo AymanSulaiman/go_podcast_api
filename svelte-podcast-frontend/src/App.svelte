@@ -3,8 +3,6 @@
 	import { user } from './stores/userStore'; // Import your user store
 	import Login from './components/Login/Login.svelte';
 	import Player from './components/Player/Player.svelte';
-	
-	console.log("hello"); // Moved this line down after imports
 
 	let isLoggedIn = false;
   
@@ -22,6 +20,8 @@
 	onDestroy(() => {
 		unsubscribe();
 	});
+
+
 </script>
 
 

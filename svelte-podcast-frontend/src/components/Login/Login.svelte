@@ -1,9 +1,8 @@
 <!-- src/components/Login/Login.svelte -->
 <script>
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+  import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+  import { auth } from '../../firebase.js'; // Adjust the relative path as necessary
   import { user } from '../../stores/userStore';
-
-  const auth = getAuth();
 
   let isSignUp = false; // Flag to toggle between login and sign up
   let email = '';
