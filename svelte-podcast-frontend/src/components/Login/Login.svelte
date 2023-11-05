@@ -1,8 +1,15 @@
 <!-- src/components/Login/Login.svelte -->
 <script>
+    import { GoogleAuthProvider, signInWithPopup, OAuthProvider } from "firebase/auth";
   import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
   import { auth } from '../../firebase.js'; // Adjust the relative path as necessary
   import { user } from '../../stores/userStore';
+
+    // Define the provider for Google authentication
+    const googleProvider = new GoogleAuthProvider();
+
+  // Define the provider for Apple authentication
+  const appleProvider = new OAuthProvider('apple.com');
 
   let isSignUp = false; // Flag to toggle between login and sign up
   let email = '';
@@ -38,6 +45,27 @@
       errorMessage = error.message;
     }
   }
+
+  async function signInWithGoogle() {
+    try {
+      const response = await signInWithPopup(auth, googleProvider);
+      user.set(response.user);
+    } catch (error) {
+      console.error('Google sign-in failed:', error);
+      errorMessage = error.message;
+    }
+  }
+
+  // Function to handle Apple sign-in
+  async function signInWithApple() {
+    try {
+      const response = await signInWithPopup(auth, appleProvider);
+      user.set(response.user);
+    } catch (error) {
+      console.error('Apple sign-in failed:', error);
+      errorMessage = error.message;
+    }
+  }
 </script>
   
   <div>
@@ -65,6 +93,11 @@
       <input type="email" bind:value={email} placeholder="Email" />
       <input type="password" bind:value={password} placeholder="Password" />
       <button on:click={handleLogin}>Sign In</button>
+    {/if}
+
+    {#if !isSignUp}
+      <button on:click={signInWithGoogle}>Sign In with Google</button>
+      <button on:click={signInWithApple}>Sign In with Apple</button>
     {/if}
   </div>
   
