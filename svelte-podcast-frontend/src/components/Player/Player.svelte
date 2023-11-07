@@ -68,12 +68,28 @@
 			e.preventDefault();  // To prevent default behavior of spacebar (e.g. page scrolling)
 		}
 	}
+
+  // State variable for menu visibility
+  let menuOpen = false;
+
+  // Function to toggle the menu
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+  }
+
+  function goToLogin() {
+    // Implement your logic to go to the login page or show a login modal
+    console.log('Login button clicked. Implement login logic.');
+  }
+
 }
 
-	
+
 </script>
 
 <input bind:value={searchTerm} on:keyup={handleKeyUp} placeholder="Search for podcasts or episodes..." />
+
+
 
 <div class="search-results">
 
@@ -250,4 +266,39 @@
 		width: 100%;
 		outline: none;
 	}
+
+	.burger {
+		position: fixed;
+		top: 10px;
+		left: 10px;
+		z-index: 10;
+		background: none;
+		border: none;
+	}
+
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px; /* adjust as needed */
+    height: 100%;
+    background-color: white; /* or any color you want */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 9;
+  }
+
+  .menu a {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* for a line between items */
+    text-decoration: none;
+    color: black; /* or any color you want */
+  }
+
+  /* When menu is open, slide it into view */
+  .menu-open .menu {
+    transform: translateX(0);
+  }
 </style>
