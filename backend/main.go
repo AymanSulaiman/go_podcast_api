@@ -9,22 +9,23 @@ import (
 	"github.com/gin-gonic/gin"    // This makes life so much easier
 )
 
-//TODO
+// TODO
 // Add in swagger for api documentation
+// Load Testing and high concurrancy, hard to do concurrancy from Isolation for root cause analysis
 
 func main() {
 	r := gin.Default()
 
 	// Use the CORS middleware
-	// r.Use(cors.Default()) // This will allow all origins by default
-	config := cors.Config{
-		AllowOrigins:     []string{"http://localhost:8080", "http://localhost:5000"}, // Or your Svelte app's production URL
-		AllowMethods:     []string{"GET", "POST"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-	}
-	r.Use(cors.New(config))
+	r.Use(cors.Default()) // This will allow all origins by default
+	// config := cors.Config{
+	// 	AllowOrigins:     []string{"http://localhost:8080", "http://localhost:5000"}, // Or your Svelte app's production URL
+	// 	AllowMethods:     []string{"GET", "POST"},
+	// 	AllowHeaders:     []string{"Origin"},
+	// 	ExposeHeaders:    []string{"Content-Length"},
+	// 	AllowCredentials: true,
+	// }
+	// r.Use(cors.New(config))
 
 	r.GET("/shows", func(c *gin.Context) {
 		term := c.Query("term") // example: /search?term=tech
