@@ -1,22 +1,30 @@
 package main
 
 import (
-	"net/http" // From Go
+	"net/http"
 
-	"github.com/Podcherry/podcherry_webapp/backend/api" // Local
-
-	"github.com/gin-contrib/cors" // Import the CORS package
-	"github.com/gin-gonic/gin"    // This makes life so much easier
+	"github.com/Podcherry/podcherry_webapp/backend/api"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
-//TODO
+// TODO
 // Add in swagger for api documentation
+// Load Testing and high concurrancy, hard to do concurrancy from Isolation for root cause analysis
 
 func main() {
 	r := gin.Default()
 
 	// Use the CORS middleware
 	r.Use(cors.Default()) // This will allow all origins by default
+	// config := cors.Config{
+	// 	AllowOrigins:     []string{"http://localhost:8080", "http://localhost:5000"}, // Or your Svelte app's production URL
+	// 	AllowMethods:     []string{"GET", "POST"},
+	// 	AllowHeaders:     []string{"Origin"},
+	// 	ExposeHeaders:    []string{"Content-Length"},
+	// 	AllowCredentials: true,
+	// }
+	// r.Use(cors.New(config))
 
 	r.GET("/shows", func(c *gin.Context) {
 		term := c.Query("term") // example: /search?term=tech
@@ -62,9 +70,39 @@ func main() {
 		}
 	})
 
+	// Define the /fetch-rss endpoint
+	r.POST("/fetch-rss", func(c *gin.Context) {
+		var req api.FetchRssRequest
+		if err := c.BindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+			return
+		}
+
+		rssCh := make(chan api.Rss) // Channel to receive the parsed RSS
+		errCh := make(chan error)   // Channel to receive any errors
+
+		// Use a goroutine to fetch and parse the RSS asynchronously
+		go func() {
+			rss, err := api.FetchRss(req.URL)
+			if err != nil {
+				errCh <- err
+				return
+			}
+			rssCh <- rss
+		}()
+
+		// Use select to wait on multiple channel operations
+		select {
+		case rss := <-rssCh:
+			c.JSON(http.StatusOK, rss)
+		case err := <-errCh:
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+	})
+
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello, World!")
 	})
 
-	r.Run(":8080") // listen and serve on 0.0.0.0:8080
+	r.Run(":8000") // listen and serve on localhost:8000
 }
