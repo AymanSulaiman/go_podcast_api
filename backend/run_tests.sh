@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Navigate to the directory containing your Go tests
-# Replace this with the path to your Go project's root directory
-cd /path/to/your/go/project
-
 # Run the Go tests with verbose output
 go test -v ./api
 
