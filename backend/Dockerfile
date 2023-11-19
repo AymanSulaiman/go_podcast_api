@@ -1,12 +1,11 @@
-ARG APP_NAME=main
+ARG APP_NAME=app
 
 # Build stage
-FROM golang:1.21.4 as build
+FROM golang:1.19 as build
 ARG APP_NAME
 ENV APP_NAME=$APP_NAME
-# WORKDIR /app
+WORKDIR /app
 COPY . .
-RUN ls -la
 RUN go mod download
 RUN go build -o /$APP_NAME
 
