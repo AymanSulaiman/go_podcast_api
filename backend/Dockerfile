@@ -6,8 +6,8 @@ ARG APP_NAME
 ENV APP_NAME=$APP_NAME
 WORKDIR /app
 COPY . .
-COPY go.mod .
 RUN ls -la
+COPY go.mod .
 RUN go mod download
 RUN go build -o /$APP_NAME
 
