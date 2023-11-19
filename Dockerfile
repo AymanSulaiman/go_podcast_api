@@ -1,4 +1,4 @@
-ARG APP_NAME=app
+ARG APP_NAME=main
 
 # Build stage
 FROM golang:1.21.4-alpine as build
