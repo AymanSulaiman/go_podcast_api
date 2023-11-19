@@ -54,6 +54,7 @@ function App() {
   const [currentShowId, setCurrentShowId] = useState(null);
   const [feedEpisodes, setFeedEpisodes] = useState([]);
   const audioPlayer = useRef(null); // Reference to the audio player DOM element
+  const [isShowEpisodesVisible, setIsShowEpisodesVisible] = useState(false);
 
   // Handles changes to the search input field
   const handleSearchChange = (e) => {
@@ -89,33 +90,38 @@ function App() {
 
   // Views the selected show's episodes by fetching from the feed
   const viewShow = async (feedUrl, showId) => {
-    // If the selected show is already being viewed, hide its episodes
-    if (currentShowId === showId) {
+    const numericShowId = Number(showId);
+
+    // Toggle visibility off if the same show is selected again
+    if (currentShowId === numericShowId) {
       setCurrentShowId(null);
       setCurrentShowName('');
       setFeedEpisodes([]);
+      setIsShowEpisodesVisible(false);
     } else {
       // Otherwise, fetch and display the new show's episodes
       try {
-        const numericShowId = Number(showId);
         const matchingShow = shows.find(show => show.collectionId === numericShowId);
         if (!matchingShow) {
           throw new Error("Show not found");
         }
+
         // Update the state with the new show's information
         setCurrentShowName(matchingShow.collectionName);
         setCurrentShowId(numericShowId);
         const response = await axios.post(`${BASE_URL}/fetch-rss`, { url: feedUrl });
         setFeedEpisodes(response.data.Channel.Items);
+        setIsShowEpisodesVisible(true);
       } catch (error) {
-        // Logs error and resets the state if fetching episodes fails
         console.error('Error fetching feed episodes:', error);
         setCurrentShowId(null);
         setCurrentShowName('');
         setFeedEpisodes([]);
+        setIsShowEpisodesVisible(false);
       }
     }
   };
+
 
   // Rendering the application UI
   return (
@@ -153,8 +159,8 @@ function App() {
         </div>
       </div>
 
-      {/* List of episodes from the selected show's feed */}
-      {currentShowId && feedEpisodes.length > 0 && (
+      {/* Conditional rendering of episodes from the selected show's feed */}
+      {isShowEpisodesVisible && currentShowId && feedEpisodes.length > 0 && (
         <div className="container mt-3">
           <h2>Episodes from {currentShowName}</h2>
           <div className="d-flex flex-column">
@@ -162,11 +168,13 @@ function App() {
               <div key={index} className="mb-2">
                 <h5>{episode.Title}</h5>
                 <p>{truncateText(episode.Description, 100)}</p>
+                {/* Additional episode details can go here */}
               </div>
             ))}
           </div>
         </div>
       )}
+
 
       {/* List of episodes returned from the search */}
       <div className="container mt-3">

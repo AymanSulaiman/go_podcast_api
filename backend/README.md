@@ -52,3 +52,8 @@ Response: A JSON response with the search results from the iTunes API.
 ### Concurrency
 For improved performance, the API utilizes goroutines to concurrently search for podcast shows and episodes. Results or errors from these goroutines are communicated back to the main routine using channels.
 
+## Building a Docker Container to test changes
+````bash
+docker build -t backend .
+docker run -d -p 8000:8000 backend
+````
