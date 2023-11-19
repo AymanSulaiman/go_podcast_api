@@ -1,7 +1,7 @@
 ARG APP_NAME=app
 
 # Build stage
-FROM golang:1.19 as build
+FROM golang:1.21.4-alpine as build
 ARG APP_NAME
 ENV APP_NAME=$APP_NAME
 WORKDIR /app
@@ -19,14 +19,3 @@ CMD ./$APP_NAME
 
 
 
-# FROM golang:1.21.4-alpine
-
-# WORKDIR /app
-
-# COPY . .
-
-# RUN go mod download && go mod verify
-
-# EXPOSE 8000
-
-# CMD ["go","run", "main.go"]
