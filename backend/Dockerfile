@@ -4,7 +4,7 @@ ARG APP_NAME=main
 FROM golang:1.21.4 as build
 ARG APP_NAME
 ENV APP_NAME=$APP_NAME
-WORKDIR /app
+# WORKDIR /app
 COPY . .
 RUN ls -la
 RUN go mod download
