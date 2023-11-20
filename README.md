@@ -1,56 +1,79 @@
-# podcherry_webapp
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
-# 1. Conceptualization and Planning:
-* Define the Objective: Understand what you want to achieve with this app. Is it just for playing podcasts, or do you also want functionalities like podcast discovery, comments, and social sharing?
-* Feature List: List down all the features you want in your app, both for the MVP (Minimum Viable Product) and for future releases.
+## Docker Container
+Run this
+````bash
+docker build -t frontend
+docker run -p 3000:3000 frontend
+````
 
-# 2. Design:
-* Wireframes: Sketch the basic design and flow of the app.
-* Design Mockups: Create detailed design mockups for each screen or page.
-* User Experience (UX) Design: Plan the user journey, considering aspects like the search function, playback controls, and user account management.
-
-# 3. Backend Development: 
-* Database Design: Plan the database structure for storing podcast episodes, user data, comments, etc.
-* API Development: Build APIs for data retrieval, user management, and other operations.
-* Integration with Podcast Sources: You might need to fetch podcast details and episodes from sources like iTunes or other podcast directories.
-
-# 4. Frontend Development:
-* Framework/Technology Selection: Choose a frontend framework or library (e.g., React, Vue.js, Angular).
-* Development: Develop the UI based on your designs.
-* Integration: Connect the frontend with your backend through APIs.
-
-# 5. Podcast Player:
-* Audio Player Integration: Use libraries or build a custom player for playing podcasts.
-* Playback Controls: Implement play, pause, skip, rewind, and speed control features.
-* Offline Capability: Allow users to download episodes for offline listening.
-
-# 6. Additional Features:
-* Discovery & Recommendations: Use algorithms to suggest podcasts based on user behavior.
-* User Accounts: Allow users to sign up, log in, and manage their account.
-* Comments and Reviews: Let users leave comments or reviews on podcast episodes.
-* Social Sharing: Enable users to share their favorite episodes on social media platforms.
-
-# 7. Testing:
-* Unit Testing: Test individual units or components of the app.
-* Integration Testing: Test the interactions between different parts of the app.
-* User Acceptance Testing (UAT): Allow a select group of users to use the app and gather feedback.
-
-# 8. Deployment:
-* Choose a Hosting Platform: Decide where you'll host your backend and frontend. Popular options include AWS, Heroku, and DigitalOcean.
-* Deployment: Deploy the app and make it live.
-* Continuous Integration/Continuous Deployment (CI/CD): Set up automated processes for testing and deploying updates.
-
-# 9. Post-launch:
-* Monitor & Maintenance: Monitor the app for any issues and ensure it's running smoothly.
-* Feedback Collection: Gather feedback from users to understand what features they'd like or what issues they're facing.
-* Iterative Development: Continuously improve the app based on feedback and analytics.
-
-# 10. Scaling and Expansion:
-* Scaling Infrastructure: If the app gains traction, ensure your infrastructure can handle the increased load.
-* New Features & Enhancements: Based on user demand and market trends, keep adding new features.
-
-# 11. Marketing and Growth:
-* Content Marketing: Write blog posts about podcasts, interviews with creators, etc.
-* Social Media Engagement: Engage with users on platforms like Twitter, Instagram, and Facebook.
-* Partnerships: Collaborate with podcast creators for exclusive content or promotions.
