@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-require('dotenv').config();
+// require('dotenv').config();
 
 // Truncates text to a specified length and adds ellipsis if it's longer than the length
 const truncateText = (text, length) => {
@@ -11,7 +11,7 @@ const truncateText = (text, length) => {
 };
 
 // Base URL for the backend API
-const BASE_URL = process.env.backend_url; // Update this if your API is on a different server
+const BASE_URL = "https://podcherry-backend-dev-snsx.4.us-1.fl0.io"; // Update this if your API is on a different server
 
 // Function to search for shows using a term
 const searchShows = async (term) => {
