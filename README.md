@@ -1,16 +1,16 @@
 # Go Podcast API
 
-This API provides endpoints to search for podcasts and podcast episodes using the iTunes Search API. It's goal is to run 
+This API provides endpoints to search for podcasts and podcast episodes using the iTunes Search API. It's goal is to run.
 
 ## Setup
 
-To run the server, make sure you have both Go and the Gin package installed.
+Make sure that you have docker installed and run this on your commandline.
 
-```bash
+````bash
+docker-compose up -d
+````
 
-```
-
-The server will start on port 8080.
+The server will start on port 8000.
 
 ## Endpoints
 
@@ -56,9 +56,3 @@ Response: A JSON response with the search results from the iTunes API.
 
 For improved performance, the API utilizes goroutines to concurrently search for podcast shows and episodes. Results or errors from these goroutines are communicated back to the main routine using channels.
 
-## Building a Docker Container to test changes
-
-````bash
-docker build -t backend .
-docker run -d -p 8000:8000 backend
-````
