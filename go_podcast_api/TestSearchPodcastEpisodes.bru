@@ -1,0 +1,16 @@
+meta {
+  name: TestSearchPodcastEpisodes
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://itunes.apple.com/search?term=huberman&entity=podcastEpisode
+  body: none
+  auth: none
+}
+
+query {
+  term: huberman
+  entity: podcastEpisode
+}

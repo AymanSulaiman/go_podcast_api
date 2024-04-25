@@ -1,22 +1,12 @@
-ARG APP_NAME=main
+FROM golang:1.22.2
 
-# Build stage
-FROM golang:1.21.4-alpine as build
-ARG APP_NAME
-ENV APP_NAME=$APP_NAME
 WORKDIR /app
-COPY . .
-RUN go mod tidy
+
+# Copy go mod and sum files first to leverage Docker cache
+COPY go.mod go.sum ./
 RUN go mod download
-RUN go build -o /$APP_NAME
 
-# Production stage
-FROM alpine:latest as production
-ARG APP_NAME
-ENV APP_NAME=$APP_NAME
-WORKDIR /root/
-COPY --from=build /$APP_NAME ./
-CMD ./$APP_NAME
+# Copy the rest of the application files
+COPY . .
 
-
-
+CMD ["go","run","main.go"]

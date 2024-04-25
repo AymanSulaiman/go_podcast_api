@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
-	"github.com/Podcherry/podcherry_webapp/backend/api"
+	"github.com/AymanSulaiman/go_podcast_api/api"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -17,23 +18,16 @@ func main() {
 
 	// Use the CORS middleware
 	r.Use(cors.Default()) // This will allow all origins by default
-	// config := cors.Config{
-	// 	AllowOrigins:     []string{"http://localhost:8080", "http://localhost:5000"}, // Or your Svelte app's production URL
-	// 	AllowMethods:     []string{"GET", "POST"},
-	// 	AllowHeaders:     []string{"Origin"},
-	// 	ExposeHeaders:    []string{"Content-Length"},
-	// 	AllowCredentials: true,
-	// }
-	// r.Use(cors.New(config))
 
 	r.GET("/shows", func(c *gin.Context) {
-		term := c.Query("term") // example: /search?term=tech
+		term := c.Query("term") // example: /shows?term=tech
 		dataCh := make(chan []byte)
 		errCh := make(chan error)
 
 		go func() {
 			data, err := api.SearchPodcastShow(term)
 			if err != nil {
+				fmt.Printf("Error searching podcast show: %v\n", err) // More detailed logging
 				errCh <- err
 				return
 			}

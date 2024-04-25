@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -15,6 +16,10 @@ func SearchPodcastShow(term string) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		return nil, fmt.Errorf("HTTP error: %s", resp.Status)
+	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -34,6 +39,10 @@ func SearchPodcastEpisodes(term string) ([]map[string]interface{}, error) {
 
 	var result struct {
 		Results []map[string]interface{} `json:"results"`
+	}
+
+	if resp.StatusCode >= 400 {
+		return nil, fmt.Errorf("HTTP error: %s", resp.Status)
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(&result)
